@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
+import { DeveloperAvatar } from "./DeveloperAvatar";
 
 export const HeroSection = () => {
   const { personal, summary } = portfolioData;
@@ -36,99 +37,112 @@ export const HeroSection = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Greeting */}
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* Developer Avatar */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex-shrink-0"
           >
-            <span className="inline-block px-4 py-2 rounded-full glass text-sm font-mono text-primary">
-              👋 Hello, I'm
-            </span>
+            <DeveloperAvatar />
           </motion.div>
 
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
-          >
-            <span className="gradient-text text-glow">{personal.name}</span>
-          </motion.h1>
-
-          {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-8 font-light"
-          >
-            {personal.title}
-          </motion.h2>
-
-          {/* Location */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex items-center justify-center gap-2 text-muted-foreground mb-8"
-          >
-            <MapPin className="w-4 h-4 text-primary" />
-            <span>{personal.location}</span>
-          </motion.div>
-
-          {/* Summary */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
-          >
-            {summary}
-          </motion.p>
-
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex items-center justify-center gap-4"
-          >
-            <motion.a
-              href={`mailto:${personal.email}`}
-              className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Email"
+          {/* Content */}
+          <div className="text-center lg:text-left">
+            {/* Greeting */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-6"
             >
-              <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.a>
-            <motion.a
-              href={`https://${personal.linkedin}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="LinkedIn"
+              <span className="inline-block px-4 py-2 rounded-full glass text-sm font-mono text-primary">
+                👋 Hello, I'm
+              </span>
+            </motion.div>
+
+            {/* Name */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
             >
-              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.a>
-            <motion.a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="GitHub"
+              <span className="gradient-text text-glow">{personal.name}</span>
+            </motion.h1>
+
+            {/* Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6 font-light"
             >
-              <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </motion.a>
-          </motion.div>
+              {personal.title}
+            </motion.h2>
+
+            {/* Location */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground mb-6"
+            >
+              <MapPin className="w-4 h-4 text-primary" />
+              <span>{personal.location}</span>
+            </motion.div>
+
+            {/* Summary */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed"
+            >
+              {summary}
+            </motion.p>
+
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex items-center justify-center lg:justify-start gap-4"
+            >
+              <motion.a
+                href={`mailto:${personal.email}`}
+                className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Email"
+              >
+                <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+              </motion.a>
+              <motion.a
+                href={`https://${personal.linkedin}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+              </motion.a>
+              <motion.a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="GitHub"
+              >
+                <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+              </motion.a>
+            </motion.div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}
