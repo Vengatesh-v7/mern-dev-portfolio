@@ -86,7 +86,7 @@ export const AboutSection = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: 0.4 + index * 0.1 }}
-                    className="px-8  py-4 rounded-full border-primary border-2 glass text-sm text-muted-foreground"
+                    className="px-8  py-4 rounded-full border-primary border-2 glass text-sm text-muted-foreground cursor-pointer hover:bg-primary hover:text-white hover:glow-effect transition-all duration-300 block"
                   >
                     {attr}
                   </motion.span>

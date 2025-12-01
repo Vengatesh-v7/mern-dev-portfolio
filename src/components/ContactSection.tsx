@@ -132,7 +132,7 @@ export const ContactSection = () => {
                   <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                 </motion.a>
                 <motion.a
-                  href="https://github.com"
+                  href={personal.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 rounded-xl glass hover:bg-primary/10 transition-colors group"

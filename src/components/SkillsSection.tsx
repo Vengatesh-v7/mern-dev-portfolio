@@ -101,14 +101,23 @@ export const SkillsSection = () => {
                 <div className="flex flex-wrap gap-3">
                   {category.skills.map((skill, skillIndex) => (
                     <motion.span
-                      key={skill}
+                      key={skill.name}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isInView ? { opacity: 1, scale: 1 } : {}}
                       transition={{ delay: 0.3 + skillIndex * 0.05 }}
                       whileHover={{ scale: 1.1, y: -3 }}
                       className="px-4 py-2 rounded-lg bg-secondary/50 text-sm font-medium hover:bg-primary/20 hover:text-primary transition-all cursor-default"
                     >
-                      {skill}
+                      <span className="flex items-center gap-2">
+                        <span>{skill.name}</span>
+                        <span>
+                          <img
+                            src={skill.logo}
+                            height={24}
+                            width={24}
+                          />
+                        </span>
+                      </span>
                     </motion.span>
                   ))}
                 </div>

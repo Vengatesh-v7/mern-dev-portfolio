@@ -19,7 +19,9 @@ export const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-mono text-xl mb-4 block">Projects</span>
+          <span className="text-primary font-mono text-xl mb-4 block">
+            Projects
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold">
             Featured <span className="gradient-text">work</span>
           </h2>
@@ -38,9 +40,7 @@ export const ProjectsSection = () => {
             >
               <div className="glass rounded-2xl p-8 h-full hover:glow-effect transition-all duration-500 relative overflow-hidden">
                 {/* Background Gradient on Hover */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
+                <motion.div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative z-10">
                   {/* Project Number */}
@@ -51,8 +51,8 @@ export const ProjectsSection = () => {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <Layers className="w-6 h-6 text-primary" />
+                      <div className="p-2 rounded-lg">
+                        <img src={project.logo} height={30} width={30} />
                       </div>
                       <h3 className="text-2xl font-bold group-hover:gradient-text transition-all duration-300">
                         {project.title}
@@ -62,7 +62,13 @@ export const ProjectsSection = () => {
                       animate={{ x: hoveredProject === project.id ? 5 : 0 }}
                       className="p-2 rounded-lg hover:bg-primary/10 transition-colors cursor-pointer"
                     >
-                      <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </a>
                     </motion.div>
                   </div>
 
@@ -92,7 +98,7 @@ export const ProjectsSection = () => {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 rounded-full text-xs font-mono bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                        className="px-4 py-2 rounded-full text-xs font-mono bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors cursor-default"
                       >
                         {tech}
                       </span>

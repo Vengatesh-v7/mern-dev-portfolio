@@ -1,7 +1,8 @@
 
 import { motion } from "framer-motion";
 import { Code2, Terminal, Database, Braces } from "lucide-react";
-import ProfileImage from "@/assets/profile.jpg";
+// import ProfileImage from "@/assets/profile.jpg";
+import ProfileImage from "@/assets/hero/hi.png";
 
 export const DeveloperAvatar = () => {
   const floatingIcons = [
@@ -37,7 +38,6 @@ export const DeveloperAvatar = () => {
         whileHover={{ scale: 1.04, transition: { duration: 0.3 } }}
       >
         {/* Soft inner gradient */}
-        {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-600/20" /> */}
         
         {/* Profile Image - Perfectly fitted */}
         <img

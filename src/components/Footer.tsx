@@ -16,7 +16,7 @@ export const Footer = () => {
         >
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
             <span>Built with</span>
-            <Heart className="w-4 h-4 text-destructive fill-destructive" />
+            <Heart className="w-4 h-4 text-green-400 fill-green-700" />
             <span>by</span>
             <span className="gradient-text font-semibold">{portfolioData.personal.name}</span>
           </div>
