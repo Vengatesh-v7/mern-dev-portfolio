@@ -71,7 +71,7 @@ export const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-mono text-sm mb-4 block">05. Contact</span>
+          <span className="text-primary font-mono text-xl mb-4 block">Contact</span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Let's <span className="gradient-text">work together</span>
           </h2>

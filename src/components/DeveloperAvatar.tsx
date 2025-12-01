@@ -1,154 +1,122 @@
+
 import { motion } from "framer-motion";
 import { Code2, Terminal, Database, Braces } from "lucide-react";
+import ProfileImage from "@/assets/profile.jpg";
 
 export const DeveloperAvatar = () => {
   const floatingIcons = [
-    { Icon: Code2, delay: 0, x: -60, y: -40 },
-    { Icon: Terminal, delay: 0.2, x: 60, y: -30 },
-    { Icon: Database, delay: 0.4, x: -50, y: 50 },
-    { Icon: Braces, delay: 0.6, x: 55, y: 45 },
+    { Icon: Code2, delay: 0, x: -150, y: -60 },
+    { Icon: Terminal, delay: 0.2, x: 150, y: -50 },
+    { Icon: Database, delay: 0.4, x: -150, y: 70 },
+    { Icon: Braces, delay: 0.6, x: 125, y: 65 },
   ];
 
   return (
-    <div className="relative w-64 h-64 md:w-80 md:h-80">
-      {/* Animated rings */}
+    <div className="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-600/10 blur-3xl" />
+
+      {/* Pulsing outer rings */}
       <motion.div
-        className="absolute inset-0 rounded-full border-2 border-primary/30"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        className="absolute w-full h-full rounded-full border border-primary"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.1, 0.3] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute inset-4 rounded-full border-2 border-accent/30"
-        animate={{
-          scale: [1.1, 1, 1.1],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute inset-8 rounded-full border border-primary/20"
-        animate={{
-          rotate: 360,
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
-        }}
+        className="absolute w-full h-full rounded-full border border-accent/15"
+        animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Main avatar container */}
+      {/* Main Avatar Circle - Perfectly Centered */}
       <motion.div
-        className="absolute inset-12 rounded-full glass glow-effect flex items-center justify-center overflow-hidden"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+        className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white/90 backdrop-blur-sm"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.8, type: "spring", stiffness: 100, damping: 20 }}
+        whileHover={{ scale: 1.04, transition: { duration: 0.3 } }}
       >
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20" />
+        {/* Soft inner gradient */}
+        {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-600/20" /> */}
         
-        {/* Avatar initials */}
-        <motion.div
-          className="relative z-10"
-          animate={{
-            y: [0, -5, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <span className="text-4xl md:text-5xl font-bold gradient-text">VK</span>
-        </motion.div>
+        {/* Profile Image - Perfectly fitted */}
+        <img
+          src={ProfileImage}
+          alt="Vishal Kumar"
+          className="w-full h-full object-cover"
+        />
 
-        {/* Shimmer effect */}
+        {/* Gentle floating animation on image */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
-          animate={{
-            x: ["-200%", "200%"],
-          }}
+          className="absolute inset-0"
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Shimmer sweep effect */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+          animate={{ x: ["-100%", "100%"] }}
           transition={{
-            duration: 3,
+            duration: 4,
             repeat: Infinity,
-            repeatDelay: 2,
-            ease: "easeInOut",
+            repeatDelay: 3,
+            ease: "linear",
           }}
         />
       </motion.div>
 
-      {/* Floating tech icons */}
+      {/* Floating Tech Icons Around Avatar */}
       {floatingIcons.map(({ Icon, delay, x, y }, index) => (
         <motion.div
           key={index}
-          className="absolute top-1/2 left-1/2 p-2 rounded-lg glass"
+          className="absolute"
           initial={{ opacity: 0, scale: 0 }}
           animate={{
             opacity: 1,
             scale: 1,
-            x: x,
-            y: y,
+            x,
+            y,
           }}
           transition={{
-            duration: 0.5,
-            delay: delay + 0.5,
+            duration: 0.8,
+            delay: delay + 0.6,
             type: "spring",
+            stiffness: 120,
           }}
         >
           <motion.div
             animate={{
-              y: [0, -8, 0],
-              rotate: [0, 5, -5, 0],
+              y: [0, -12, 0],
+              rotate: [0, 8, -8, 0],
             }}
             transition={{
-              duration: 3 + index * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: index * 0.2,
+              y: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: 5, repeat: Infinity },
+              delay: index * 0.3,
             }}
+            className="p-3 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-lg"
           >
-            <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+            <Icon className="w-7 h-7 text-white drop-shadow-md" />
           </motion.div>
         </motion.div>
       ))}
 
-      {/* Orbiting dot */}
+      {/* Small orbiting dot for extra life */}
       <motion.div
-        className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full bg-primary shadow-lg"
-        style={{ marginLeft: -6, marginTop: -6 }}
-        animate={{
-          rotate: 360,
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear",
+        className="absolute w-3 h-3 rounded-full shadow-blue-100/60"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        style={{
+          top: "50%",
+          left: "50%",
+          x: "-50%",
+          y: "-50%",
+          width: "340px",
+          height: "340px",
         }}
       >
-        <motion.div
-          className="w-3 h-3 rounded-full bg-primary"
-          style={{ transform: "translateX(100px)" }}
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [1, 0.5, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white/80 blur-md" />
       </motion.div>
     </div>
   );

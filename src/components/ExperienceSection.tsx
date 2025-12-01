@@ -1,87 +1,186 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Building2, Calendar, ChevronRight } from "lucide-react";
-import { portfolioData } from "@/data/portfolio";
+import { Building2, Calendar } from "lucide-react";
+
+const experiences = [
+  {
+    id: 1,
+    company: "Support Studio Technologies",
+    role: "Full Stack Developer",
+    period: "June 2025 - Sep 2025",
+    location: "Puducherry",
+    current: true,
+    description:
+      "Led full-stack development projects using MERN stack, architecting scalable solutions and implementing best practices across multiple enterprise applications.",
+    highlights: [
+      "Architected and deployed production-ready web applications with React, Node.js, and MongoDB",
+      "Achieved 85%+ test coverage using Jest and React Testing Library",
+      "Automated CI/CD pipelines with GitHub Actions",
+      "Mentored junior developers on clean code and system design",
+    ],
+  },
+  {
+    id: 2,
+    company: "AgileSoftLabs",
+    role: "Full Stack Developer",
+    period: "Nov 2024 - May 2025",
+    location: "Puducherry",
+    current: false,
+    description:
+      "Built scalable full-stack applications with modern tools, delivering production-grade features on tight deadlines.",
+    highlights: [
+      "Developed cross-platform apps using React Native + Laravel",
+      "Integrated Stripe, Razorpay, and real-time notifications",
+      "Led API design and database optimization initiatives",
+      "Improved app performance by 40% through code splitting",
+    ],
+  },
+  {
+    id: 3,
+    company: "Redblox Technologies",
+    role: "Full Stack Developer",
+    period: "Oct 2022 - Nov 2024",
+    location: "Puducherry",
+    current: false,
+    description:
+      "Contributed to large-scale ERP systems, focusing on clean architecture, performance, and maintainability.",
+    highlights: [
+      "Built enterprise dashboards with Next.js 14, TypeScript, and Tailwind",
+      "Reduced bundle size by 60% using dynamic imports and tree-shaking",
+      "Implemented role-based access control and audit logging",
+      "Set up ESLint + Prettier + Husky for consistent code quality",
+    ],
+  },
+];
 
 export const ExperienceSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { experience } = portfolioData;
 
   return (
-    <section id="experience" className="py-32 relative" ref={ref}>
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent" />
-      
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="experience" className="py-6 relative" ref={ref}>
+      <div className="container mx-auto px-6 max-w-7xl">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
         >
-          <span className="text-primary font-mono text-sm mb-4 block">02. Experience</span>
-          <h2 className="text-4xl md:text-5xl font-bold">
-            Where I've <span className="gradient-text">worked</span>
+          <p className="text-primary font-mono text-xl tracking-widest">
+            EXPERIENCE
+          </p>
+          <h2 className="text-5xl md:text-6xl font-bold mt-4">
+            Where I've <span className="gradient-text">Worked</span>
           </h2>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto">
-          {/* Timeline */}
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2" />
+        {/* Timeline */}
+        <div className="relative">
+          {/* Center Line - Always Visible */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-transparent via-primary/30 to-transparent hidden md:block" />
 
-            {experience.map((exp, index) => (
-              <motion.div
+          {experiences.map((exp, index) => {
+            const isLeft = index % 2 === 0;
+
+            return (
+              <div
                 key={exp.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className={`relative pl-8 md:pl-0 pb-12 ${
-                  index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
-                }`}
+                className="relative flex items-center justify-center mb-32 last:mb-0"
               >
                 {/* Timeline Dot */}
-                <motion.div
-                  className={`absolute left-0 md:left-1/2 top-0 w-4 h-4 rounded-full bg-primary md:-translate-x-1/2 ${
-                    exp.current ? "animate-glow-pulse" : ""
-                  }`}
-                  whileHover={{ scale: 1.5 }}
-                />
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-12 bg-primary rounded-full ring-8 ring-background shadow-xl z-10 hidden md:block">
+                  <div className="absolute inset-0 bg-primary rounded-full animate-ping" />
+                </div>
 
+                {/* Card - Fixed 3:1 Ratio, Animate from Side to Center */}
                 <motion.div
-                  className={`glass rounded-2xl p-6 ${
-                    index % 2 === 0 ? "md:mr-8" : "md:ml-8"
-                  } hover:glow-effect transition-all duration-300`}
-                  whileHover={{ scale: 1.02 }}
+                  initial={{
+                    opacity: 0,
+                    x: isLeft ? -100 : 100,
+                    scale: 0.8,
+                  }}
+                  animate={
+                    isInView
+                      ? {
+                          opacity: 1,
+                          x: 0,
+                          scale: 1,
+                        }
+                      : {}
+                  }
+                  transition={{
+                    duration: 1,
+                    delay: index * 0.5, // Each card appears every ~1 second
+                    ease: "easeOut",
+                  }}
+                  className={`w-full max-w-2xl ${
+                    isLeft ? "md:mr-auto md:pr-20" : "md:ml-auto md:pl-20"
+                  }`}
                 >
-                  {exp.current && (
-                    <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-mono mb-3">
-                      Current
-                    </span>
-                  )}
-                  
-                  <div className={`flex items-center gap-2 mb-2 ${
-                    index % 2 === 0 ? "md:justify-end" : ""
-                  }`}>
-                    <Building2 className="w-5 h-5 text-primary" />
-                    <h3 className="text-xl font-semibold">{exp.company}</h3>
-                  </div>
-                  
-                  <p className="text-muted-foreground mb-3">{exp.role}</p>
-                  
-                  <div className={`flex items-center gap-2 text-sm text-muted-foreground ${
-                    index % 2 === 0 ? "md:justify-end" : ""
-                  }`}>
-                    <Calendar className="w-4 h-4" />
-                    <span className="font-mono">{exp.period}</span>
+                  <div
+                    className="glass-card rounded-2xl px-6 py-4 border border-border/50 backdrop-blur-md hover:border-primary/40 transition-all duration-500 shadow-2xl"
+                    style={{ aspectRatio: "4 / 3 " }}
+                  >
+                    <div className="flex flex-col justify-evenly h-full">
+                      {/* Top Row 1: Company + Icon */}
+                      <div className="flex justify-between items-start ">
+                        <div>
+                          <h3 className="text-3xl font-bold text-foreground">
+                            {exp.company}
+                          </h3>
+                          <p className="text-primary text-xl font-medium mt-1">
+                            {exp.role}
+                          </p>
+                        </div>
+                        <Building2 className="w-14 h-14 text-primary/70" />
+                      </div>
+
+                      {/* Row 2: Period + Location */}
+                      <div className="flex items-center gap-4 text-muted-foreground">
+                        <div className="flex items-center">
+                          <Calendar className="w-5 h-5 mr-2" />
+                          <span className="font-mono text-sm">
+                            {exp.period}
+                          </span>
+                        </div>
+                        <span>•</span>
+                        <span className="text-sm">{exp.location}</span>
+                        {exp.current && (
+                          <span className=" px-4 py-1 rounded-full  border-2 border-primary text-primary text-xs font-bold tracking-wider">
+                            Currently working
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Row 3: Description */}
+                      <p className="text-foreground/80 text-lg leading-relaxed m-2">
+                        {exp.description}
+                      </p>
+
+                      {/* Row 4: Highlights */}
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        {exp.highlights.map((highlight, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={isInView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ delay: index * 0.5 + 0.8 + i * 0.15 }}
+                            className="flex items-start gap-2 text-foreground/80"
+                          >
+                            <span className="text-primary text-2xl">▹</span>
+                            <span className="text-sm leading-relaxed">
+                              {highlight}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

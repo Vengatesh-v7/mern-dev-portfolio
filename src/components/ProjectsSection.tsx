@@ -19,7 +19,7 @@ export const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-mono text-sm mb-4 block">03. Projects</span>
+          <span className="text-primary font-mono text-xl mb-4 block">Projects</span>
           <h2 className="text-4xl md:text-5xl font-bold">
             Featured <span className="gradient-text">work</span>
           </h2>

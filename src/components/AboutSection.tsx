@@ -8,7 +8,7 @@ const stats = [
   { icon: Briefcase, label: "Years Experience", value: "3+" },
   { icon: Code2, label: "Projects Delivered", value: "10+" },
   { icon: Award, label: "Certifications", value: "4" },
-  { icon: GraduationCap, label: "Education", value: "B.Sc" },
+  { icon: GraduationCap, label: "Education", value: "B.Sc., B.Ed," },
 ];
 
 export const AboutSection = () => {
@@ -25,7 +25,9 @@ export const AboutSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-mono text-sm mb-4 block">01. About Me</span>
+          <span className="text-primary font-mono text-xl mb-4 block">
+            About Me
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold">
             Get to know <span className="gradient-text">me better</span>
           </h2>
@@ -40,15 +42,17 @@ export const AboutSection = () => {
             className="space-y-6"
           >
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a passionate Full Stack Developer specializing in the MERN stack, with a strong 
-              foundation in both front-end and back-end development. My journey in tech has been 
-              driven by curiosity and a desire to create impactful digital solutions.
+              I'm a passionate Full Stack Developer specializing in the MERN
+              stack, with a strong foundation in both front-end and back-end
+              development. My journey in tech has been driven by curiosity and a
+              desire to create impactful digital solutions.
             </p>
-            
+
             <p className="text-lg text-muted-foreground leading-relaxed">
-              With {portfolioData.experience.length} companies under my belt, I've had the privilege 
-              of working on diverse projects ranging from ERP systems to mobile applications. I 
-              believe in writing clean, maintainable code and staying updated with the latest 
+              With {portfolioData.experience.length} companies under my belt,
+              I've had the privilege of working on diverse projects ranging from
+              ERP systems to mobile applications. I believe in writing clean,
+              maintainable code and staying updated with the latest
               technologies.
             </p>
 
@@ -57,23 +61,32 @@ export const AboutSection = () => {
                 <GraduationCap className="w-5 h-5 text-primary" />
                 Education
               </h3>
-              <div className="glass rounded-xl p-4">
-                <p className="font-medium">{education.degree}</p>
-                <p className="text-muted-foreground text-sm">{education.institution}</p>
-                <p className="text-primary text-sm font-mono">{education.year}</p>
-              </div>
+
+              {education.map((education) => (
+                <div className="glass rounded-xl p-4 mb-2">
+                  <p className="font-medium">{education.degree}</p>
+                  <p className="text-muted-foreground text-sm">
+                    {education.institution}
+                  </p>
+                  <p className="text-primary text-sm font-mono">
+                    {education.year}
+                  </p>
+                </div>
+              ))}
             </div>
 
             <div className="pt-4">
-              <h3 className="text-xl font-semibold mb-4">Professional Attributes</h3>
-              <div className="flex flex-wrap gap-3">
+              <h3 className="text-xl font-semibold mb-4">
+                Professional Attributes
+              </h3>
+              <div className="flex gap-12 flew-wrap items-center ">
                 {attributes.map((attr, index) => (
                   <motion.span
                     key={attr}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: 0.4 + index * 0.1 }}
-                    className="px-4 py-2 rounded-full glass text-sm text-muted-foreground"
+                    className="px-8  py-4 rounded-full border-primary border-2 glass text-sm text-muted-foreground"
                   >
                     {attr}
                   </motion.span>
@@ -99,7 +112,9 @@ export const AboutSection = () => {
                 className="glass rounded-2xl p-6 text-center group hover:glow-effect transition-all duration-300"
               >
                 <stat.icon className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                <p className="text-3xl md:text-4xl font-bold gradient-text mb-2">{stat.value}</p>
+                <p className="text-3xl md:text-4xl font-bold gradient-text mb-2">
+                  {stat.value}
+                </p>
                 <p className="text-muted-foreground text-sm">{stat.label}</p>
               </motion.div>
             ))}
