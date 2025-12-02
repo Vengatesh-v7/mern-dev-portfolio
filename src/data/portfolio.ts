@@ -31,7 +31,8 @@ export const portfolioData = {
         "Implemented CRUD operations improving data handling efficiency by 30%",
         "Configured Husky, ESLint, and Prettier reducing code review time",
       ],
-      logo: "/src/assets/exprience/sst.png",
+      // logo: "/src/assets/exprience/sst.png",
+      logo: "@/assets/exprience/sst.png",
     },
     {
       id: 2,
