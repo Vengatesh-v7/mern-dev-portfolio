@@ -100,11 +100,15 @@
   
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-display);
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
   }
   
   ::selection {
