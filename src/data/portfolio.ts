@@ -1,3 +1,5 @@
+import sstLogo from '@/assets/exprience/sst.png';
+
 export const portfolioData = {
   personal: {
     name: "Vengatesh K",
@@ -32,7 +34,8 @@ export const portfolioData = {
         "Configured Husky, ESLint, and Prettier reducing code review time",
       ],
       // logo: "/src/assets/exprience/sst.png",
-      logo: "@/assets/exprience/sst.png",
+      // logo: "@/assets/exprience/sst.png",
+      logo: sstLogo,
     },
     {
       id: 2,
