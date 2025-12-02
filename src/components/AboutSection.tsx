@@ -91,14 +91,14 @@ export const AboutSection = () => {
               <h3 className="text-xl sm:text-2xl font-semibold mb-5">
                 Professional Attributes
               </h3>
-              <div className="flex gap-4 flex-wrap sm:flex-nowrap sm:gap-20  ">
+              <div className="flex gap-2 sm:gap-3 flex-wrap">
                 {attributes.map((attr, index) => (
                   <motion.span
                     key={attr}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: 0.5 + index * 0.08 }}
-                    className="px-5 py-3 rounded-full border-2 border-primary/50 glass-backdrop text-foreground text-sm font-medium 
+                    className="px-3 py-2 sm:px-5 sm:py-3 rounded-full border-2 border-primary/50 glass-backdrop text-foreground text-xs sm:text-sm font-medium 
                                hover:bg-primary hover:text-white hover:border-primary hover:glow-effect 
                                transition-all duration-300 whitespace-nowrap cursor-default"
                   >

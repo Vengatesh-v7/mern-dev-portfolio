@@ -30,16 +30,36 @@ export const ContactSection = () => {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message sent successfully!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    
-    reset();
-    setIsSubmitting(false);
+    try {
+      const { supabase } = await import("@/integrations/supabase/client");
+      
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      
+      reset();
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again or contact me directly via email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
