@@ -5,7 +5,11 @@ import  courseraLogo  from "@/assets/certificates/coursera.png";
 import nextgenLogo from "@/assets/certificates/nextgen.png";
 import tcs_ionLogo from "@/assets/certificates/tcs_ion.png";
 import guviLogo from "@/assets/certificates/guvi.png";
-
+import nextStreetLogo from "@/assets/projects/nextstreet.avif";
+import workspace360Logo from "@/assets/projects/workspace360.webp";
+import producerBazaarLogo from "@/assets/projects/producer_bazaar.png";
+import spryntzLogo from "@/assets/projects/spryntz.png";
+    
 
 export const portfolioData = {
   personal: {
@@ -92,7 +96,7 @@ export const portfolioData = {
         "Automated CI/CD via GitHub Actions",
       ],
       url: "https://demo-scale.com/",
-      logo: "/src/assets/projects/nextstreet.avif",
+      logo: nextStreetLogo,
     },
     {
       id: 2,
@@ -114,7 +118,7 @@ export const portfolioData = {
         "Reduced code review time significantly",
       ],
       url: "https://app.workspace360.io/login",
-      logo: "/src/assets/projects/workspace360.webp",
+      logo: workspace360Logo,
     },
     {
       id: 3,
@@ -129,7 +133,7 @@ export const portfolioData = {
         "Contributed to Laravel backend development",
       ],
       url: "https://spryntz.com/",
-      logo: "/src/assets/projects/spryntz.png",
+      logo: spryntzLogo,
     },
     {
       id: 4,
@@ -144,7 +148,7 @@ export const portfolioData = {
         "Optimized layout for effortless browsing",
       ],
       url: "https://www.producerbazaar.com/",
-      logo: "/src/assets/projects/producer_bazaar.png",
+      logo: producerBazaarLogo,    
     },
   ],
 
