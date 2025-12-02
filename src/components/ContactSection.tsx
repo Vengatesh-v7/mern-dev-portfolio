@@ -49,7 +49,7 @@ export const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-32 relative" ref={ref}>
+    <section id="contact" className="py-12 relative" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0">
         <motion.div

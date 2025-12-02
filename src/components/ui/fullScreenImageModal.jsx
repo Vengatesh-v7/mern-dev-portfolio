@@ -1,9 +1,13 @@
-// components/FullScreenImageModal.jsx
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import { createPortal } from "react-dom";
 
-export const FullScreenImageModal = ({ isOpen, onClose, imageSrc, title = "Certificate" }) => {
+export const FullScreenImageModal = ({
+  isOpen,
+  onClose,
+  imageSrc,
+  title = "Certificate",
+}) => {
   if (!isOpen) return null;
 
   return createPortal(
@@ -12,8 +16,9 @@ export const FullScreenImageModal = ({ isOpen, onClose, imageSrc, title = "Certi
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[9999] flex items-center justify-center backdrop-blur-sm cursor-zoom-out"
+      className="fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-sm cursor-zoom-out"
     >
+   
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -41,12 +46,11 @@ export const FullScreenImageModal = ({ isOpen, onClose, imageSrc, title = "Certi
           <motion.img
             src={imageSrc}
             alt={title}
-            className="w-full h-auto max-h-screen object-contain"
+            className="max-w-2xl max-h-screen object-contain"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           />
         </div>
-
       </motion.div>
     </motion.div>,
     document.body

@@ -60,7 +60,7 @@ export const SkillsSection = () => {
 
   return (
     <>
-      <section id="skills" className="py-32 relative" ref={ref}>
+      <section id="skills" className=" relative" ref={ref}>
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-transparent to-secondary/20" />
 

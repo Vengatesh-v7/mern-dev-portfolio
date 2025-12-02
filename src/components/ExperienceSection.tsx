@@ -121,8 +121,7 @@ export const ExperienceSection = () => {
                   }`}
                 >
                   <div
-                    className="glass-card rounded-2xl px-6 py-4 border border-border/50 backdrop-blur-md hover:border-primary/40 transition-all duration-500 shadow-2xl"
-                    style={{ aspectRatio: "4 / 3 " }}
+                    className="glass-card rounded-2xl aspect-auto px-6 py-4 border border-border/50 backdrop-blur-md hover:border-primary/40 transition-all duration-500 shadow-2xl"
                   >
                     <div className="flex flex-col justify-evenly h-full">
                       {/* Top Row 1: Company + Icon */}

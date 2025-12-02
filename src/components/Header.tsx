@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { createPortal } from "react-dom";
@@ -14,49 +14,45 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-// Reusable Avatar that triggers the full-screen modal
-const ProfileAvatar = ({ onClick }) => {
+// Profile Avatar with Tooltip
+const ProfileAvatar = ({ onClick }: { onClick: () => void }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <div className="relative">
-      <motion.a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          onClick();
-        }}
-        className="relative block rounded-full cursor-zoom-in overflow-hidden ring-2 ring-transparent hover:ring-blue-500 transition-all"
-        whileHover={{ scale: 1.05 }}
+      <motion.button
+        onClick={onClick}
+        className="relative block rounded-full overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all duration-300 focus-visible:ring-primary focus-visible:outline-none"
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
+        aria-label="View full profile image"
       >
         <img
           src={ProfileImage}
           alt="Profile"
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
         />
-      </motion.a>
+      </motion.button>
 
-      {/* Tooltip */}
+      {/* Desktop Tooltip */}
       {showTooltip && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 8 }}
-          className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black text-white text-xs px-3 py-1.5 rounded-md shadow-lg z-50 pointer-events-none"
+          className="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black/90 text-white text-xs px-3 py-2 rounded-md shadow-xl z-50 pointer-events-none hidden sm:block"
         >
-          View full image
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1.5 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black" />
+          Click to view full image
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-black/90" />
         </motion.div>
       )}
     </div>
   );
 };
 
-// Full-screen modal rendered at document.body via portal
-const FullScreenImageModal = ({ isOpen, onClose }) => {
+// Full-Screen Image Modal (Fully Responsive)
+const FullScreenImageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
 
   return createPortal(
@@ -65,38 +61,32 @@ const FullScreenImageModal = ({ isOpen, onClose }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-sm cursor-zoom-out"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out px-4"
     >
       <motion.div
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.8 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="relative max-w-4xl max-h-full p-8"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+        className="relative max-w-full max-h-full"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close Button - Larger & Better Positioned */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center transition-all"
-          aria-label="Close"
+          className="absolute -top-12 sm:top-4 sm:-right-16 right-0 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center transition-all"
+          aria-label="Close full image"
         >
-          <X className="w-8 h-8 text-white" />
+          <X className="w-7 h-7 text-white" />
         </button>
 
-        {/* Full Image */}
-        <motion.div
+        {/* Responsive Image */}
+        <motion.img
+          src={ProfileImage}
+          alt="Full profile - VK"
+          className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
           whileHover={{ scale: 1.02 }}
-          className="rounded-2xl overflow-hidden shadow-2xl border border-white/20"
-        >
-          <img
-            src={ProfileImage}
-            alt="Full profile - VK"
-            className="max-w-md max-h-lg object-contain rounded-2xl"
-          />
-        </motion.div>
-
-    
+        />
       </motion.div>
     </motion.div>,
     document.body
@@ -108,117 +98,138 @@ export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isFullScreenImageOpen, setIsFullScreenImageOpen] = useState(false);
 
-  // Handle scroll for glass effect
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close modal with Escape key
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") setIsFullScreenImageOpen(false);
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsFullScreenImageOpen(false);
+        setIsMobileMenuOpen(false);
+      }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
+
+  // Prevent body scroll when menu/modal is open
+  useEffect(() => {
+    if (isMobileMenuOpen || isFullScreenImageOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isMobileMenuOpen, isFullScreenImageOpen]);
 
   return (
     <>
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass py-3" : "py-6"
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? "glass py-3 sm:py-4 shadow-lg"
+            : "py-5 sm:py-7 bg-transparent"
         }`}
       >
-        <nav className="container mx-auto px-6 flex items-center justify-between">
-          {/* Logo + Name */}
-          <div className="flex items-center gap-3">
-            <ProfileAvatar onClick={() => setIsFullScreenImageOpen(true)} />
-            <motion.a
-              href="#"
-              className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              VK
-            </motion.a>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, index) => (
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo + Avatar */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              <ProfileAvatar onClick={() => setIsFullScreenImageOpen(true)} />
               <motion.a
-                key={link.name}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors relative group"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                href="#"
+                className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                VK
               </motion.a>
-            ))}
+            </div>
 
-            <ThemeToggle />
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  className="text-foreground/80 hover:text-foreground text-sm xl:text-base font-medium relative group transition-colors"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </motion.a>
+              ))}
 
-            <motion.a
-              href={portfolioData.personal.resumeUrl}
-              download
-              className="flex items-center gap-2 px-4 py-2 rounded-lg gradient-border bg-secondary/50 hover:bg-secondary transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Download className="w-4 h-4" />
-              Resume
-            </motion.a>
-          </div>
+              <ThemeToggle />
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
-            <button
-              className="p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              <motion.a
+                href={portfolioData.personal.resumeUrl}
+                download
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary/10 hover:bg-primary/20 border border-primary/20 text-foreground font-medium text-sm transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download className="w-4 h-4" />
+                Resume
+              </motion.a>
+            </div>
+
+            {/* Mobile Controls */}
+            <div className="flex items-center gap-3 lg:hidden">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Full Width & Better Spacing */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden glass border-t border-border/50"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden glass mt-2 mx-4 rounded-2xl border border-border/50 overflow-hidden"
             >
-              <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+              <div className="p-6 space-y-5">
                 {navLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors py-2"
+                    className="block text-lg font-medium text-foreground/90 hover:text-primary transition-colors py-2"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
                   </a>
                 ))}
+
                 <a
                   href={portfolioData.personal.resumeUrl}
                   download
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground justify-center"
+                  className="flex items-center justify-center gap-3 w-full px-6 py-3.5 bg-primary text-primary-foreground rounded-xl font-medium text-base mt-6 hover:bg-primary/90 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Download className="w-4 h-4" />
+                  <Download className="w-5 h-5" />
                   Download Resume
                 </a>
               </div>
@@ -227,7 +238,7 @@ export const Header = () => {
         </AnimatePresence>
       </motion.header>
 
-      {/* Full-Screen Image Modal (via Portal) */}
+      {/* Full-Screen Image Modal */}
       <FullScreenImageModal
         isOpen={isFullScreenImageOpen}
         onClose={() => setIsFullScreenImageOpen(false)}

@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -8,7 +9,7 @@ const stats = [
   { icon: Briefcase, label: "Years Experience", value: "3+" },
   { icon: Code2, label: "Projects Delivered", value: "10+" },
   { icon: Award, label: "Certifications", value: "4" },
-  { icon: GraduationCap, label: "Education", value: "B.Sc., B.Ed," },
+  { icon: GraduationCap, label: "Education", value: "B.Sc., B.Ed" },
 ];
 
 export const AboutSection = () => {
@@ -17,76 +18,89 @@ export const AboutSection = () => {
   const { education, attributes } = portfolioData;
 
   return (
-    <section id="about" className="py-32 relative" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section id="about" className="py-20 md:py-32 relative" ref={ref}>
+      <div className="container mx-auto px-5 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <span className="text-primary font-mono text-xl mb-4 block">
+          <span className="text-primary font-mono text-lg sm:text-xl mb-3 block">
             About Me
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
             Get to know <span className="gradient-text">me better</span>
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
+        {/* Main Grid - Mobile: Stack, Tablet+: Side by side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Left Content - Bio + Education + Attributes */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a passionate Full Stack Developer specializing in the MERN
-              stack, with a strong foundation in both front-end and back-end
-              development. My journey in tech has been driven by curiosity and a
-              desire to create impactful digital solutions.
-            </p>
-
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              With {portfolioData.experience.length} companies under my belt,
-              I've had the privilege of working on diverse projects ranging from
-              ERP systems to mobile applications. I believe in writing clean,
-              maintainable code and staying updated with the latest
-              technologies.
-            </p>
-
-            <div className="pt-4">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <GraduationCap className="w-5 h-5 text-primary" />
-                Education
-              </h3>
-
-              {education.map((education) => (
-                <div className="glass rounded-xl p-4 mb-2">
-                  <p className="font-medium">{education.degree}</p>
-                  <p className="text-muted-foreground text-sm">
-                    {education.institution}
-                  </p>
-                  <p className="text-primary text-sm font-mono">
-                    {education.year}
-                  </p>
-                </div>
-              ))}
+            {/* Bio Text */}
+            <div className="space-y-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
+              <p>
+                I'm a passionate Full Stack Developer specializing in the MERN
+                stack, with a strong foundation in both front-end and back-end
+                development. My journey in tech has been driven by curiosity and a
+                desire to create impactful digital solutions.
+              </p>
+              <p>
+                With {portfolioData.experience.length} companies under my belt,
+                I've worked on diverse projects — from ERP systems to mobile apps.
+                I value clean, maintainable code and continuously learn new technologies.
+              </p>
             </div>
 
-            <div className="pt-4">
-              <h3 className="text-xl font-semibold mb-4">
+            {/* Education */}
+            <div>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-5 flex items-center gap-3">
+                <GraduationCap className="w-6 h-6 text-primary" />
+                Education
+              </h3>
+              <div className="space-y-4">
+                {education.map((edu, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    className="glass rounded-xl p-5 border border-white/10"
+                  >
+                    <p className="font-semibold text-foreground">{edu.degree}</p>
+                    <p className="text-muted-foreground text-sm mt-1">
+                      {edu.institution}
+                    </p>
+                    <p className="text-primary text-sm font-mono mt-2">
+                      {edu.year}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Professional Attributes - Fully Responsive Tags */}
+            <div>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-5">
                 Professional Attributes
               </h3>
-              <div className="flex gap-12 flew-wrap items-center ">
+              <div className="flex flex-wrap gap-3">
                 {attributes.map((attr, index) => (
                   <motion.span
                     key={attr}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="px-8  py-4 rounded-full border-primary border-2 glass text-sm text-muted-foreground cursor-pointer hover:bg-primary hover:text-white hover:glow-effect transition-all duration-300 block"
+                    transition={{ delay: 0.5 + index * 0.08 }}
+                    className="px-5 py-3 rounded-full border-2 border-primary/50 glass-backdrop text-foreground text-sm font-medium 
+                               hover:bg-primary hover:text-white hover:border-primary hover:glow-effect 
+                               transition-all duration-300 whitespace-nowrap"
                   >
                     {attr}
                   </motion.span>
@@ -95,27 +109,29 @@ export const AboutSection = () => {
             </div>
           </motion.div>
 
-          {/* Right Stats */}
+          {/* Right Side - Stats Grid */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-2 gap-6"
+            className="grid grid-cols-2 gap-5 sm:gap-6"
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.5 + index * 0.1 }}
+                transition={{ delay: 0.6 + index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="glass rounded-2xl p-6 text-center group hover:glow-effect transition-all duration-300"
+                className="glass rounded-2xl p-6 text-center group hover:glow-effect transition-all duration-300 min-w-0"
               >
-                <stat.icon className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                <p className="text-3xl md:text-4xl font-bold gradient-text mb-2">
+                <stat.icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1">
                   {stat.value}
                 </p>
-                <p className="text-muted-foreground text-sm">{stat.label}</p>
+                <p className="text-muted-foreground text-xs sm:text-sm leading-tight">
+                  {stat.label}
+                </p>
               </motion.div>
             ))}
           </motion.div>
