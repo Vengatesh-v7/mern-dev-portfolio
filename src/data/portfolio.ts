@@ -1,4 +1,11 @@
 import sstLogo from '@/assets/exprience/sst.png';
+import agsLogo from '@/assets/exprience/ags.png';
+import redBloxLogo from '@/assets/exprience/redblox.png';
+import  courseraLogo  from "@/assets/certificates/coursera.png";
+import nextgenLogo from "@/assets/certificates/nextgen.png";
+import tcs_ionLogo from "@/assets/certificates/tcs_ion.png";
+import guviLogo from "@/assets/certificates/guvi.png";
+
 
 export const portfolioData = {
   personal: {
@@ -33,8 +40,6 @@ export const portfolioData = {
         "Implemented CRUD operations improving data handling efficiency by 30%",
         "Configured Husky, ESLint, and Prettier reducing code review time",
       ],
-      // logo: "/src/assets/exprience/sst.png",
-      // logo: "@/assets/exprience/sst.png",
       logo: sstLogo,
     },
     {
@@ -52,7 +57,7 @@ export const portfolioData = {
         "Developed core features including payment integration, order management, and user authentication",
         "Automated CI/CD pipelines using GitHub Actions for streamlined deployments",
       ],
-      logo: "/src/assets/exprience/ags.png",
+      logo: agsLogo,
     },
     {
       id: 3,
@@ -69,7 +74,7 @@ export const portfolioData = {
         "Participated in agile ceremonies and code reviews to maintain code quality",
         "Learned the NFTs and blockchain concepts and implemented them in the project",
       ],
-      logo: "/src/assets/exprience/redblox.png",
+      logo: redBloxLogo,
     },
   ],
 
@@ -271,25 +276,25 @@ export const portfolioData = {
       title: "MERN Stack Development",
       issuer: "Guvi",
       year: "2024",
-      image: "/src/assets/certificates/guvi.png",
+      image: guviLogo,
     },
     {
       title: "Soft Skill Development",
       issuer: "TCS ION",
       year: "2024",
-      image: "/src/assets/certificates/tcs_ion.png",
+      image: tcs_ionLogo,
     },
     {
       title: "Web Designing",
       issuer: "Nextgen Solutions",
       year: "2022",
-      image: "/src/assets/certificates/nextgen.png",
+      image: nextgenLogo,
     },
     {
       title: "Crash Course on Python",
       issuer: "Coursera by Google",
       year: "2023",
-      image: "/src/assets/certificates/coursera.png",
+      image: courseraLogo,
     },
   ],
 
