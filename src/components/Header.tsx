@@ -32,7 +32,7 @@ const ProfileAvatar = ({ onClick }: { onClick: () => void }) => {
         <img
           src={ProfileImage}
           alt="Profile"
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
+          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover"
         />
       </motion.button>
 
@@ -51,7 +51,7 @@ const ProfileAvatar = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-// Full-Screen Image Modal (Fully Responsive)
+// Full-Screen Image Modal (Fully Responsive for all devices)
 const FullScreenImageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
 
@@ -61,30 +61,30 @@ const FullScreenImageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out px-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-md cursor-zoom-out p-4 sm:p-6 md:p-8"
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        className="relative max-w-full max-h-full"
+        className="relative w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-xl flex flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button - Larger & Better Positioned */}
+        {/* Close Button - Positioned above image on mobile, top-right on desktop */}
         <button
           onClick={onClose}
-          className="absolute -top-12 sm:top-4 sm:-right-16 right-0 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center transition-all"
+          className="absolute -top-12 right-0 sm:top-0 sm:-right-14 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center transition-all"
           aria-label="Close full image"
         >
-          <X className="w-7 h-7 text-white" />
+          <X className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
         </button>
 
-        {/* Responsive Image */}
+        {/* Responsive Image - Centered */}
         <motion.img
           src={ProfileImage}
           alt="Full profile - VK"
-          className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+          className="w-full max-h-[70vh] sm:max-h-[75vh] md:max-h-[80vh] object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
           whileHover={{ scale: 1.02 }}
         />
       </motion.div>
@@ -132,20 +132,20 @@ export const Header = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full max-w-[100vw] ${
           isScrolled
-            ? "glass py-3 sm:py-4 shadow-lg"
-            : "py-5 sm:py-7 bg-transparent"
+            ? "glass py-2 sm:py-3 md:py-4 shadow-lg"
+            : "py-3 sm:py-5 md:py-7 bg-transparent"
         }`}
       >
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+        <nav className="w-full max-w-[100vw] mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="flex items-center justify-between w-full">
             {/* Logo + Avatar */}
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-shrink-0">
               <ProfileAvatar onClick={() => setIsFullScreenImageOpen(true)} />
               <motion.a
                 href="#"
-                className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -184,17 +184,17 @@ export const Header = () => {
             </div>
 
             {/* Mobile Controls */}
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center gap-1 sm:gap-2 md:gap-3 lg:hidden flex-shrink-0">
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg hover:bg-white/10 transition-colors"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
                 )}
               </button>
             </div>

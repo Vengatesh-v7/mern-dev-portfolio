@@ -16,37 +16,37 @@ export const FullScreenImageModal = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md cursor-zoom-out p-3 sm:p-4 md:p-6 lg:p-8"
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-4xl max-h-[90vh]"
+        className="relative w-full max-w-[95vw] sm:max-w-[85vw] md:max-w-2xl lg:max-w-3xl flex flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close Button - Above content on mobile, side on larger screens */}
         <button
           onClick={onClose}
-          className="absolute -top-12 sm:top-2 sm:-right-14 right-2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center transition-all"
+          className="absolute -top-10 right-0 sm:-top-2 sm:-right-12 md:-right-14 z-10 w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center transition-all"
           aria-label="Close"
         >
-          <X className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
         </button>
 
-        {/* Certificate Title */}
-        <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold text-center mb-4 sm:mb-6">
+        {/* Certificate Title - Centered */}
+        <h3 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center mb-3 sm:mb-4 md:mb-5 mt-2 sm:mt-0 px-2">
           {title}
         </h3>
 
-        {/* Full Image */}
-        <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-white/20">
+        {/* Full Image - Centered with proper constraints */}
+        <div className="w-full rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-black/30">
           <motion.img
             src={imageSrc}
             alt={title}
-            className="w-full h-auto max-h-[70vh] sm:max-h-[75vh] object-contain"
-            whileHover={{ scale: 1.02 }}
+            className="w-full h-auto max-h-[60vh] sm:max-h-[65vh] md:max-h-[70vh] lg:max-h-[75vh] object-contain mx-auto"
+            whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
           />
         </div>
