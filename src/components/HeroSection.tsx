@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ChevronDown, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Mail, MapPin, Gamepad2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { portfolioData } from "@/data/portfolio";
 import { DeveloperAvatar } from "./DeveloperAvatar";
 
@@ -140,6 +141,28 @@ export const HeroSection = () => {
                 aria-label="GitHub"
               >
                 <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+              </motion.a>
+            </motion.div>
+
+            {/* Quiz Fun Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-6 flex justify-center lg:justify-start"
+            >
+              <motion.a
+                href="#quiz"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-xl shadow-lg hover:shadow-primary/25 transition-all duration-300 gap-2"
+                >
+                  <Gamepad2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                  QUIZ Fun
+                </Button>
               </motion.a>
             </motion.div>
           </div>
