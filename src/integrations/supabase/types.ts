@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      quiz_sessions: {
+        Row: {
+          category: string
+          correct_answers: number
+          created_at: string
+          ended_at: string | null
+          id: string
+          player_name: string
+          session_duration_seconds: number | null
+          started_at: string
+          total_questions: number
+        }
+        Insert: {
+          category: string
+          correct_answers?: number
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          player_name: string
+          session_duration_seconds?: number | null
+          started_at?: string
+          total_questions?: number
+        }
+        Update: {
+          category?: string
+          correct_answers?: number
+          created_at?: string
+          ended_at?: string | null
+          id?: string
+          player_name?: string
+          session_duration_seconds?: number | null
+          started_at?: string
+          total_questions?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
