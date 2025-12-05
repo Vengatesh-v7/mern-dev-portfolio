@@ -33,7 +33,7 @@ export const FullScreenImageModal = ({
           className="absolute -top-10 right-0 sm:-top-2 sm:-right-12 md:-right-14 z-10 w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center transition-all"
           aria-label="Close"
         >
-          <X className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 " />
         </button>
 
         {/* Certificate Title - Centered */}

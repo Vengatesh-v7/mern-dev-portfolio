@@ -220,9 +220,17 @@ export const portfolioData = {
         name: "TypeScript",
         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
       },
+       {
+        name: "Python",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      },
       {
         name: "Laravel",
         logo: "https://static.cdnlogo.com/logos/l/23/laravel.svg",
+      },
+      {
+        name: "PHP",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",  
       },
     ],
     databases: [
@@ -238,12 +246,20 @@ export const portfolioData = {
         name: "MySQL",
         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
       },
+      {
+        name: "Redis",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+      },
+      { 
+        name: 'mongoose',
+        logo: 'https://miro.medium.com/v2/resize:fit:1100/format:webp/1*rL8Buu7o6jnG-TYV1WubeQ.png'
+      },
+      {name: 'TypeORM', 
+      logo: 'https://images.seeklogo.com/logo-png/44/1/typeorm-logo-png_seeklogo-443592.png'
+    }
     ],
     tools: [
-      {
-        name: "VS Code",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-      },
+      
       {
         name: "Git",
         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
@@ -261,12 +277,24 @@ export const portfolioData = {
         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg",
       },
       {
+        name: "VS Code",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+      },
+      {
+        name: "XCode",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xcode/xcode-original.svg",
+      },
+      {
+        name: "Android Studio",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg",
+      },
+      {
         name: "Postman",
         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-plain.svg",
       },
       {
         name: "Figma",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-plain.svg",
+        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
       },
       {
         name: "FileZilla",

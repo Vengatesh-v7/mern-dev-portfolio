@@ -1,58 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Building2, Calendar } from "lucide-react";
+import {  Calendar } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
-// const experiences = [
-//   {
-//     id: 1,
-//     company: "Support Studio Technologies",
-//     role: "Full Stack Developer",
-//     period: "June 2025 - Sep 2025",
-//     location: "Puducherry",
-//     current: true,
-//     description:
-//       "Led full-stack development projects using MERN stack, architecting scalable solutions and implementing best practices across multiple enterprise applications.",
-//     highlights: [
-//       "Architected and deployed production-ready web applications with React, Node.js, and MongoDB",
-//       "Achieved 85%+ test coverage using Jest and React Testing Library",
-//       "Automated CI/CD pipelines with GitHub Actions",
-//       "Mentored junior developers on clean code and system design",
-//     ],
-//   },
-//   {
-//     id: 2,
-//     company: "AgileSoftLabs",
-//     role: "Full Stack Developer",
-//     period: "Nov 2024 - May 2025",
-//     location: "Puducherry",
-//     current: false,
-//     description:
-//       "Built scalable full-stack applications with modern tools, delivering production-grade features on tight deadlines.",
-//     highlights: [
-//       "Developed cross-platform apps using React Native + Laravel",
-//       "Integrated Stripe, Razorpay, and real-time notifications",
-//       "Led API design and database optimization initiatives",
-//       "Improved app performance by 40% through code splitting",
-//     ],
-//   },
-//   {
-//     id: 3,
-//     company: "Redblox Technologies",
-//     role: "Full Stack Developer",
-//     period: "Oct 2022 - Nov 2024",
-//     location: "Puducherry",
-//     current: false,
-//     description:
-//       "Contributed to large-scale ERP systems, focusing on clean architecture, performance, and maintainability.",
-//     highlights: [
-//       "Built enterprise dashboards with Next.js 14, TypeScript, and Tailwind",
-//       "Reduced bundle size by 60% using dynamic imports and tree-shaking",
-//       "Implemented role-based access control and audit logging",
-//       "Set up ESLint + Prettier + Husky for consistent code quality",
-//     ],
-//   },
-// ];
 
 export const ExperienceSection = () => {
   const ref = useRef(null);
@@ -149,9 +99,12 @@ export const ExperienceSection = () => {
                         <span>•</span>
                         <span className="text-sm">{exp.location}</span>
                         {exp.current && (
+                          <>
+                           <span>•</span>
                           <span className=" px-4 py-1 rounded-full  border-2 border-primary text-primary text-xs font-bold tracking-wider">
-                            Currently working
+                            Present
                           </span>
+                          </>
                         )}
                       </div>
 

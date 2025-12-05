@@ -7,19 +7,19 @@ import { FullScreenImageModal } from "../components/ui/fullScreenImageModal"; //
 
 const skillCategories = [
   {
-    title: "Front-End",
+    title: "Front End Development",
     icon: Monitor,
     skills: portfolioData.skills.frontend,
     gradient: "from-cyan-500 to-blue-500",
   },
   {
-    title: "Back-End",
+    title: "Back End Development",
     icon: Server,
     skills: portfolioData.skills.backend,
     gradient: "from-purple-500 to-pink-500",
   },
   {
-    title: "Databases",
+    title: "Databases and ORMs",
     icon: Database,
     skills: portfolioData.skills.databases,
     gradient: "from-green-500 to-teal-500",
