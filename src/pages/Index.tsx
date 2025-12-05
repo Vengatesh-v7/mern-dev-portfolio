@@ -29,6 +29,11 @@ const SkillsSection = lazy(() =>
     default: (mod as any).default ?? (mod as any).SkillsSection,
   }))
 );
+const QuizSection = lazy(() =>
+  import("@/components/QuizSection").then((mod) => ({
+    default: (mod as any).default ?? (mod as any).QuizSection,
+  }))
+);
 const ContactSection = lazy(() =>
   import("@/components/ContactSection").then((mod) => ({
     default: (mod as any).default ?? (mod as any).ContactSection,
@@ -69,6 +74,10 @@ export default function Index() {
 
         <Suspense fallback={<SectionLoader />}>
           <SkillsSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <QuizSection />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
