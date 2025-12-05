@@ -8,6 +8,7 @@ export const FullScreenImageModal = ({
   imageSrc,
   title = "Certificate",
 }) => {
+
   if (!isOpen) return null;
 
   return createPortal(
@@ -16,14 +17,14 @@ export const FullScreenImageModal = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md cursor-zoom-out p-3 sm:p-4 md:p-6 lg:p-8"
+      className="fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-md cursor-zoom-out p-3 sm:p-4 md:p-6 lg:p-8"
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-[95vw] sm:max-w-[85vw] md:max-w-2xl lg:max-w-3xl flex flex-col items-center"
+        className="relative w-1/4 max-w-[95vw] sm:max-w-[85vw] md:max-w-2xl lg:max-w-3xl flex flex-col items-center justify-start"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button - Above content on mobile, side on larger screens */}
@@ -41,11 +42,12 @@ export const FullScreenImageModal = ({
         </h3>
 
         {/* Full Image - Centered with proper constraints */}
-        <div className="w-full rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-black/30">
+        <div className="w-1/4 rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden shadow-2xl">
           <motion.img
             src={imageSrc}
             alt={title}
-            className="w-full h-auto max-h-[60vh] sm:max-h-[65vh] md:max-h-[70vh] lg:max-h-[75vh] object-contain mx-auto"
+            className=" h-auto rounded-md max-h-[30vh] sm:max-h-[65vh] md:max-h-[70vh] lg:max-h-[75vh] object-contain mx-auto"
+            width={'60%'}
             whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
           />

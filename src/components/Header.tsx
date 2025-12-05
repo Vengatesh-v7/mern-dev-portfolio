@@ -68,7 +68,7 @@ const FullScreenImageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        className="relative w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-xl flex flex-col items-center"
+        className="relative w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-xl flex flex-col items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button - Positioned above image on mobile, top-right on desktop */}
@@ -84,7 +84,7 @@ const FullScreenImageModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         <motion.img
           src={ProfileImage}
           alt="Full profile - VK"
-          className="w-full max-h-[70vh] sm:max-h-[75vh] md:max-h-[80vh] object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+          className="w-full max-h-[70vh] sm:max-h-[75vh] md:max-h-[80vh] object-contain rounded-md sm:rounded-2xl shadow-2xl border border-white/10"
           whileHover={{ scale: 1.02 }}
         />
       </motion.div>
