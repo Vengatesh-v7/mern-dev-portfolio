@@ -99,12 +99,13 @@ export default function Index() {
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
+          <InfoSection />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
           <ContactSection />
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <InfoSection />
-        </Suspense>
       </main>
 
       <Footer />
