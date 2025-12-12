@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { usePageView } from "@/hooks/usePageView";
 
 // Lazy load heavy sections only when they enter viewport
 const HeroSection = lazy(() =>
@@ -24,6 +25,11 @@ const ProjectsSection = lazy(() =>
     default: (mod as any).default ?? (mod as any).ProjectsSection,
   }))
 );
+const OtherProjectsSection = lazy(() =>
+  import("@/components/OtherProjectsSection").then((mod) => ({
+    default: (mod as any).default ?? (mod as any).OtherProjectsSection,
+  }))
+);
 const SkillsSection = lazy(() =>
   import("@/components/SkillsSection").then((mod) => ({
     default: (mod as any).default ?? (mod as any).SkillsSection,
@@ -39,6 +45,11 @@ const ContactSection = lazy(() =>
     default: (mod as any).default ?? (mod as any).ContactSection,
   }))
 );
+const InfoSection = lazy(() =>
+  import("@/components/InfoSection").then((mod) => ({
+    default: (mod as any).default ?? (mod as any).InfoSection,
+  }))
+);
 
 // Optional: Custom loading spinner (reuse across site)
 const SectionLoader = () => (
@@ -48,6 +59,9 @@ const SectionLoader = () => (
 );
 
 export default function Index() {
+  // Track page views
+  usePageView();
+
   return (
     <div className="relative min-h-screen">
       {/* Subtle Noise Overlay - Always Visible */}
@@ -73,6 +87,10 @@ export default function Index() {
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
+          <OtherProjectsSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
           <SkillsSection />
         </Suspense>
 
@@ -82,6 +100,10 @@ export default function Index() {
 
         <Suspense fallback={<SectionLoader />}>
           <ContactSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <InfoSection />
         </Suspense>
       </main>
 
