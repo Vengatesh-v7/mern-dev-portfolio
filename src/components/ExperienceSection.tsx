@@ -89,19 +89,19 @@ export const ExperienceSection = () => {
                       </div>
 
                       {/* Row 2: Period + Location */}
-                      <div className="flex items-center gap-4 text-muted-foreground">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-muted-foreground">
                         <div className="flex items-center">
-                          <Calendar className="w-5 h-5 mr-2" />
-                          <span className="font-mono text-sm">
+                          <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                          <span className="font-mono text-xs sm:text-sm">
                             {exp.period}
                           </span>
                         </div>
-                        <span>•</span>
-                        <span className="text-sm">{exp.location}</span>
+                        <span className="hidden sm:inline">•</span>
+                        <span className="text-xs sm:text-sm">{exp.location}</span>
                         {exp.current && (
                           <>
-                           <span>•</span>
-                          <span className=" px-4 py-1 rounded-full  border-2 border-primary text-primary text-xs font-bold tracking-wider">
+                           <span className="hidden sm:inline">•</span>
+                          <span className="px-2 sm:px-4 py-0.5 sm:py-1 rounded-full border-2 border-primary text-primary text-[10px] sm:text-xs font-bold tracking-wider">
                             Present
                           </span>
                           </>
