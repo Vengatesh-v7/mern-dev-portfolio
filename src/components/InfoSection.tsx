@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import { 
   Eye, 
@@ -7,8 +7,7 @@ import {
   Trophy, 
   TrendingUp, 
   Calendar,
-  BarChart3,
-  Clock
+  BarChart3
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { CountUpNumber } from "./CountUpNumber";
@@ -24,9 +23,9 @@ interface AnalyticsData {
   recentQuizzes: { player_name: string; correct_answers: number; total_questions: number; category: string }[];
 }
 
-export const InfoSection = () => {
+const InfoSection = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [analytics, setAnalytics] = useState<AnalyticsData>({
     totalViews: 0,
     todayViews: 0,
@@ -38,88 +37,54 @@ export const InfoSection = () => {
     recentQuizzes: []
   });
   const [loading, setLoading] = useState(true);
+  const [hasFetched, setHasFetched] = useState(false);
 
-  useEffect(() => {
-    fetchAnalytics();
-
-    // Set up realtime subscription for page views
-    const pageViewsChannel = supabase
-      .channel('page-views-changes')
-      .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'page_views' },
-        () => fetchAnalytics()
-      )
-      .subscribe();
-
-    const quizChannel = supabase
-      .channel('quiz-changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'quiz_sessions' },
-        () => fetchAnalytics()
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(pageViewsChannel);
-      supabase.removeChannel(quizChannel);
-    };
-  }, []);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
+    if (!isInView && hasFetched) return;
+    
     try {
-      // Fetch total page views
-      const { count: totalViews } = await supabase
-        .from('page_views')
-        .select('*', { count: 'exact', head: true });
-
-      // Fetch today's views
+      // Batch queries using Promise.all for better performance
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      const { count: todayViews } = await supabase
-        .from('page_views')
-        .select('*', { count: 'exact', head: true })
-        .gte('viewed_at', today.toISOString());
 
-      // Fetch quiz statistics
-      const { data: quizData } = await supabase
-        .from('quiz_sessions')
-        .select('*');
+      const [viewsResult, todayViewsResult, quizResult] = await Promise.all([
+        supabase.from('page_views').select('*', { count: 'exact', head: true }),
+        supabase.from('page_views').select('*', { count: 'exact', head: true }).gte('viewed_at', today.toISOString()),
+        supabase.from('quiz_sessions').select('player_name,correct_answers,total_questions,category,ended_at').order('ended_at', { ascending: false }).limit(20)
+      ]);
 
-      const totalQuizSessions = quizData?.length || 0;
-      const totalQuizQuestions = quizData?.reduce((sum, q) => sum + (q.total_questions || 0), 0) || 0;
-      const totalCorrectAnswers = quizData?.reduce((sum, q) => sum + (q.correct_answers || 0), 0) || 0;
-      const averageScore = totalQuizQuestions > 0 
-        ? Math.round((totalCorrectAnswers / totalQuizQuestions) * 100) 
-        : 0;
+      const totalViews = viewsResult.count || 0;
+      const todayViews = todayViewsResult.count || 0;
+      const quizData = quizResult.data || [];
+
+      const totalQuizSessions = quizData.length;
+      const totalQuizQuestions = quizData.reduce((sum, q) => sum + (q.total_questions || 0), 0);
+      const totalCorrectAnswers = quizData.reduce((sum, q) => sum + (q.correct_answers || 0), 0);
+      const averageScore = totalQuizQuestions > 0 ? Math.round((totalCorrectAnswers / totalQuizQuestions) * 100) : 0;
 
       // Top categories
       const categoryCount: Record<string, number> = {};
-      quizData?.forEach(q => {
-        if (q.category) {
-          categoryCount[q.category] = (categoryCount[q.category] || 0) + 1;
-        }
+      quizData.forEach(q => {
+        if (q.category) categoryCount[q.category] = (categoryCount[q.category] || 0) + 1;
       });
       const topCategories = Object.entries(categoryCount)
         .map(([category, count]) => ({ category, count }))
         .sort((a, b) => b.count - a.count);
 
-      // Recent quizzes
+      // Recent quizzes (already sorted)
       const recentQuizzes = quizData
-        ?.filter(q => q.player_name && q.ended_at)
-        .sort((a, b) => new Date(b.ended_at!).getTime() - new Date(a.ended_at!).getTime())
+        .filter(q => q.player_name && q.ended_at)
         .slice(0, 5)
         .map(q => ({
           player_name: q.player_name,
           correct_answers: q.correct_answers,
           total_questions: q.total_questions,
           category: q.category
-        })) || [];
+        }));
 
       setAnalytics({
-        totalViews: totalViews || 0,
-        todayViews: todayViews || 0,
+        totalViews,
+        todayViews,
         totalQuizSessions,
         totalQuizQuestions,
         totalCorrectAnswers,
@@ -127,12 +92,20 @@ export const InfoSection = () => {
         topCategories,
         recentQuizzes
       });
+      setHasFetched(true);
     } catch (error) {
       console.error('Error fetching analytics:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [isInView, hasFetched]);
+
+  // Only fetch when section comes into view
+  useEffect(() => {
+    if (isInView && !hasFetched) {
+      fetchAnalytics();
+    }
+  }, [isInView, hasFetched, fetchAnalytics]);
 
   const statCards = [
     { 
@@ -324,4 +297,8 @@ export const InfoSection = () => {
       </div>
     </section>
   );
-};
+});
+
+InfoSection.displayName = "InfoSection";
+export default InfoSection;
+export { InfoSection };

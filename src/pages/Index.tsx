@@ -1,60 +1,23 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { usePageView } from "@/hooks/usePageView";
 
-// Lazy load heavy sections only when they enter viewport
-const HeroSection = lazy(() =>
-  import("@/components/HeroSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).HeroSection,
-  }))
-);
-const AboutSection = lazy(() =>
-  import("@/components/AboutSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).AboutSection,
-  }))
-);
-const ExperienceSection = lazy(() =>
-  import("@/components/ExperienceSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).ExperienceSection,
-  }))
-);
-const ProjectsSection = lazy(() =>
-  import("@/components/ProjectsSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).ProjectsSection,
-  }))
-);
-const OtherProjectsSection = lazy(() =>
-  import("@/components/OtherProjectsSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).OtherProjectsSection,
-  }))
-);
-const SkillsSection = lazy(() =>
-  import("@/components/SkillsSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).SkillsSection,
-  }))
-);
-const QuizSection = lazy(() =>
-  import("@/components/QuizSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).QuizSection,
-  }))
-);
-const ContactSection = lazy(() =>
-  import("@/components/ContactSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).ContactSection,
-  }))
-);
-const InfoSection = lazy(() =>
-  import("@/components/InfoSection").then((mod) => ({
-    default: (mod as any).default ?? (mod as any).InfoSection,
-  }))
-);
+// Lazy load all sections for better initial load
+const HeroSection = lazy(() => import("@/components/HeroSection"));
+const AboutSection = lazy(() => import("@/components/AboutSection"));
+const ExperienceSection = lazy(() => import("@/components/ExperienceSection"));
+const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
+const OtherProjectsSection = lazy(() => import("@/components/OtherProjectsSection"));
+const SkillsSection = lazy(() => import("@/components/SkillsSection"));
+const QuizSection = lazy(() => import("@/components/QuizSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const InfoSection = lazy(() => import("@/components/InfoSection"));
 
-// Optional: Custom loading spinner (reuse across site)
+// Minimal skeleton loader
 const SectionLoader = () => (
-  <div className="flex items-center justify-center py-32">
-    <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+  <div className="flex items-center justify-center py-20 min-h-[200px]">
+    <div className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin" />
   </div>
 );
 

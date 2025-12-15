@@ -113,3 +113,5 @@ export const ProjectsSection = () => {
     </section>
   );
 };
+
+export default ProjectsSection;
