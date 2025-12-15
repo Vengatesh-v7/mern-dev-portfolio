@@ -52,7 +52,14 @@ export const ProjectsSection = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg">
-                        <img src={project.logo} height={30} width={30} />
+                        <img
+                          src={project.logo}
+                          alt={`${project.title} logo`}
+                          height={30}
+                          width={30}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </div>
                       <h3 className="text-2xl font-bold group-hover:gradient-text transition-all duration-300">
                         {project.title}

@@ -32,7 +32,9 @@ const ProfileAvatar = ({ onClick }: { onClick: () => void }) => {
       >
         <img
           src={ProfileImage}
-          alt="Profile"
+          alt="Vengatesh profile photo"
+          loading="eager"
+          decoding="async"
           className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover"
         />
       </motion.button>

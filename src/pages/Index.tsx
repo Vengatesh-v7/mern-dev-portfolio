@@ -1,7 +1,8 @@
-import { Suspense, lazy, useEffect } from "react";
+import { lazy } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { usePageView } from "@/hooks/usePageView";
+import { LazyMount } from "@/components/LazyMount";
 
 // Lazy load all sections for better initial load
 const HeroSection = lazy(() => import("@/components/HeroSection"));
@@ -33,42 +34,43 @@ export default function Index() {
       <Header />
 
       <main className="relative">
-        {/* Hero is critical → load immediately but still in Suspense for consistency */}
-        <HeroSection />
+        {/* Hero is critical → load immediately */}
+        <LazyMount fallback={<SectionLoader />} rootMargin="2000px 0px" minHeightClassName="min-h-screen">
+          <HeroSection />
+        </LazyMount>
 
-        {/* All other sections load only when near viewport */}
-        <Suspense fallback={<SectionLoader />}>
+        {/* Mount other sections only when near viewport */}
+        <LazyMount fallback={<SectionLoader />}>
           <AboutSection />
-        </Suspense>
+        </LazyMount>
 
-        <Suspense fallback={<SectionLoader />}>
+        <LazyMount fallback={<SectionLoader />}>
           <ExperienceSection />
-        </Suspense>
+        </LazyMount>
 
-        <Suspense fallback={<SectionLoader />}>
+        <LazyMount fallback={<SectionLoader />}>
           <ProjectsSection />
-        </Suspense>
+        </LazyMount>
 
-        <Suspense fallback={<SectionLoader />}>
+        <LazyMount fallback={<SectionLoader />}>
           <OtherProjectsSection />
-        </Suspense>
+        </LazyMount>
 
-        <Suspense fallback={<SectionLoader />}>
+        <LazyMount fallback={<SectionLoader />}>
           <SkillsSection />
-        </Suspense>
+        </LazyMount>
 
-        <Suspense fallback={<SectionLoader />}>
+        <LazyMount fallback={<SectionLoader />}>
           <QuizSection />
-        </Suspense>
+        </LazyMount>
 
-        <Suspense fallback={<SectionLoader />}>
+        <LazyMount fallback={<SectionLoader />}>
           <InfoSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <ContactSection />
-        </Suspense>
+        </LazyMount>
 
+        <LazyMount fallback={<SectionLoader />}>
+          <ContactSection />
+        </LazyMount>
       </main>
 
       <Footer />
@@ -76,3 +78,4 @@ export default function Index() {
     </div>
   );
 }
+
