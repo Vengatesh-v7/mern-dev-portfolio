@@ -174,3 +174,5 @@ export const OtherProjectsSection = () => {
     </section>
   );
 };
+
+export default OtherProjectsSection;

@@ -1,40 +1,34 @@
-import { motion } from "framer-motion";
-import { ChevronDown, Github, Linkedin, Mail, MapPin, Gamepad2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { memo, useMemo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ChevronDown, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { DeveloperAvatar } from "./DeveloperAvatar";
 
-export const HeroSection = () => {
+const HeroSection = memo(() => {
   const { personal, summary } = portfolioData;
+  const prefersReducedMotion = useReducedMotion();
+
+  // Memoize animation variants
+  const bgAnimation = useMemo(() => 
+    prefersReducedMotion ? {} : {
+      scale: [1, 1.1, 1],
+      opacity: [0.2, 0.3, 0.2],
+    }, [prefersReducedMotion]
+  );
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Animated Background Elements */}
+      {/* Simplified Background - CSS only when reduced motion */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/10 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-accent/10 blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        {prefersReducedMotion ? (
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/10 blur-3xl opacity-30" />
+        ) : (
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-primary/10 blur-3xl will-change-transform"
+            animate={bgAnimation}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          />
+        )}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -168,24 +162,26 @@ export const HeroSection = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+      {/* Scroll Indicator - Simplified */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
+          transition={{ delay: 0.8 }}
           className="absolute left-1/2 -translate-x-1/2"
         >
-          <motion.a
+          <a
             href="#about"
-            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors animate-bounce"
           >
             <span className="text-sm font-mono">Scroll down</span>
             <ChevronDown className="w-5 h-5" />
-          </motion.a>
+          </a>
         </motion.div>
       </div>
     </section>
   );
-};
+});
+
+HeroSection.displayName = "HeroSection";
+export default HeroSection;
+export { HeroSection };

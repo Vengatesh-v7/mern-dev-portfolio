@@ -1,20 +1,26 @@
-import { useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useEffect, useRef } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const usePageView = () => {
+  const hasTracked = useRef(false);
+
   useEffect(() => {
-    const trackPageView = async () => {
+    if (hasTracked.current) return;
+    hasTracked.current = true;
+
+    // Defer tracking to not block initial render
+    const timeoutId = setTimeout(async () => {
       try {
-        await supabase.from('page_views').insert({
+        await supabase.from("page_views").insert({
           page_path: window.location.pathname,
           user_agent: navigator.userAgent,
-          referrer: document.referrer || null
+          referrer: document.referrer || null,
         });
       } catch (error) {
-        console.error('Error tracking page view:', error);
+        console.error("Error tracking page view:", error);
       }
-    };
+    }, 1000);
 
-    trackPageView();
+    return () => clearTimeout(timeoutId);
   }, []);
 };
