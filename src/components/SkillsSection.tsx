@@ -56,8 +56,6 @@ export const SkillsSection = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  console.log("Certificates:", portfolioData.certificates);
-
   return (
     <>
       <section id="skills" className=" relative" ref={ref}>
@@ -99,13 +97,10 @@ export const SkillsSection = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-3">
-                  {category.skills.map((skill, skillIndex) => (
+                  {category.skills.map((skill) => (
                     <motion.span
                       key={skill.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ delay: 0.3 + skillIndex * 0.05 }}
-                      whileHover={{ scale: 1.1, y: -3 }}
+                      whileHover={{ scale: 1.06, y: -2 }}
                       className="px-4 py-2 rounded-lg bg-secondary/50 text-sm font-medium hover:bg-primary/20 hover:text-primary transition-all cursor-default"
                     >
                       <span className="flex items-center gap-2">
@@ -113,8 +108,11 @@ export const SkillsSection = () => {
                         <span>
                           <img
                             src={skill.logo}
+                            alt={`${skill.name} logo`}
                             height={24}
                             width={24}
+                            loading="lazy"
+                            decoding="async"
                           />
                         </span>
                       </span>
@@ -151,13 +149,13 @@ export const SkillsSection = () => {
                     <div className="aspect-auto relative overflow-hidden bg-black/20">
                       <img
                         src={cert.image}
-                        alt={cert.title}
+                        alt={`${cert.title} certificate`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full  h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-
-                    {/* Text Overlay */}
 
                     {/* Click Hint */}
                     <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -198,3 +196,4 @@ export const SkillsSection = () => {
 };
 
 export default SkillsSection;
+

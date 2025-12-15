@@ -85,7 +85,14 @@ export const ExperienceSection = () => {
                           </p>
                         </div>
 
-                        <img  src={exp.logo} alt={exp.company} height={60} width={50}/>
+                        <img
+                          src={exp.logo}
+                          alt={`${exp.company} logo`}
+                          height={60}
+                          width={50}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </div>
 
                       {/* Row 2: Period + Location */}
